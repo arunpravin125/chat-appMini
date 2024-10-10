@@ -1,3 +1,4 @@
+import path from "path"
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
@@ -16,9 +17,22 @@ app.use(cookieparser())
 dotenv.config()
 
 const usePort = process.env.PORT || 3501
-
+const __dirname = path.resolve()
 app.use("/api/users",usersRouter)
 app.use("/api/messages",messageRouter)
+
+if(process.env.NODE_ENV == "production"){
+    app.use(express.static(path.join(__dirname,"frontend/dist")))
+
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,"frontend","dist","index.html"))
+    })
+}
+
+
+
+
+
 
 server.listen(usePort,()=>{
     connectDB()

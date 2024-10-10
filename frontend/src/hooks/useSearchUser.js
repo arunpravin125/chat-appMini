@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const useSearchUser = () => {
     const {selectedConversation,setSelectedConveration,authUser,conversations,setConversations}=useAuthContext()
-    //   const [user,setUser]=useState("")
+  
     const [loading,setLoading]=useState(false)
   const search = async (user,setUser) => {
     setLoading(true)
